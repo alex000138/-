@@ -1,0 +1,33 @@
+<aside class="side-panel">
+    <!-- Последние сорта -->
+    <div class="card">
+        <h2 class="card__title">Новые добавления</h2>
+        <div class="latest-varieties">
+            {% for variety in latest_varieties %}
+            <div class="variety-item"
+                 onclick="loadVarietyInfo({{ variety.id }})"
+                 data-variety-id="{{ variety.id }}">
+                <div class="variety-name">{{ variety.name_main }}</div>
+                <div class="variety-year">{{ variety.registration_year }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Форма добавления -->
+    <div class="card">
+        <h2 class="card__title">Добавить сорт</h2>
+        <form class="add-form" action="{{ url_for('main.add_info') }}" method="post">
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Название сорта" required>
+                <input type="text" name="type" placeholder="Тип сорта" required>
+                <input type="text" name="code" placeholder="Код сорта" required>
+                <textarea name="description" placeholder="Описание" required></textarea>
+                <input type="text" name="origin" placeholder="Происхождение" required>
+                <input type="number" name="year" placeholder="Год регистрации" min="1900" max="2100" required>
+            </div>
+            <!-- Остальные поля формы -->
+            <button type="submit" class="btn-submit">➕ Добавить</button>
+        </form>
+    </div>
+</aside>

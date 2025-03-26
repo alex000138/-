@@ -1,0 +1,16 @@
+<nav class="side-panel">
+    <div class="card">
+        <h2 class="card__title">Меню</h2>
+        <ul class="nav-menu">
+            <li class="nav-item {% if request.endpoint == 'main.index' %}active{% endif %}">
+                <a href="{{ url_for('main.index') }}" class="nav-link">🏠 Главная</a>
+            </li>
+            <li class="nav-item {% if request.endpoint == 'main.tables' %}active{% endif %}">
+                <a href="{{ url_for('main.tables') }}" class="nav-link">📊 Таблицы</a>
+            </li>
+            <li class="nav-item {% if request.endpoint == 'main.about' %}active{% endif %}">
+                <a href="{{ url_for('main.about') }}" class="nav-link">ℹ️ О нас</a>
+            </li>
+        </ul>
+    </div>
+</nav>

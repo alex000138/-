@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+<!-- Вынесем JS в отдельный частичный шаблон -->
+{% include '_variety_scripts.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container grid-layout">
+    <!-- Левая панель - навигация -->
+    {% include '_nav_panel.html' %}
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <!-- Поиск -->
+        <section class="card">
+            <h2 class="card__title">Поиск сортов</h2>
+            <form class="search-form" method="get" action="{{ url_for('main.index') }}">
+                <input type="search" name="query"
+                       class="search-input"
+                       placeholder="Название сорта..."
+                       value="{{ query }}">
+                <button type="submit" class="btn-search">🔍 Найти</button>
+            </form>
+        </section>
+
+        <!-- Результаты поиска -->
+        {% if results %}
+        <section class="card">
+            <h2 class="card__title">Найдено: {{ results|length }}</h2>
+            <div class="search-results">
+                {% for result in results %}
+                <a href="#variety-{{ result.id }}"
+                   class="result-item"
+                   data-variety-id="{{ result.id }}"
+                   onclick="loadVarietyInfo({{ result.id }})">
+                    {{ result.name_main }} <small>({{ result.type_main }})</small>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Детали сорта -->
+        <section class="card">
+            <h2 class="card__title">Детали сорта</h2>
+            <div id="dynamic-info" class="variety-details">
+                <p class="placeholder">Выберите сорт из списка</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Правая панель -->
+    {% include '_side_panel.html' %}
+</div>
+{% endblock %}
